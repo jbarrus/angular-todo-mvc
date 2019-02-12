@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 import {Todo} from './todo';
-import {filter, map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,9 @@ export class TodosService {
   private counter = 1;
   private todos: Todo[] = [];
   $todos = new BehaviorSubject<Todo[]>(this.todos);
-  $incompleteCount = this.$todos.pipe(
-    map(todos => todos.filter(t => !t.isCompleted).length));
 
-  constructor() { }
+  constructor() {
+  }
 
   add(text: string) {
     this.todos.push({id: this.counter++, text, isCompleted: false});

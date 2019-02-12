@@ -3,14 +3,14 @@
     <h1>Todos</h1>
     <app-add-todo (todoAdded)="onTodoAdded($event)"></app-add-todo>
   </header>
-  <section class="main" *ngIf="(todosService.$todos | async).length">
-    <app-todo-list [todos]="todosService.$todos | async | todosFilter:filter"
+  <section class="main" *ngIf="$todoCount | async">
+    <app-todo-list [todos]="$todos | async | todosFilter:filter"
                    (removed)="onRemoved($event)"
                    (changed)="onChanged($event)"
-                   (toggleAllClicked)="todosService.toggleAll()"></app-todo-list>
+                   (toggleAllClicked)="toggleAll()"></app-todo-list>
   </section>
-  <footer class="footer" *ngIf="(todosService.$todos | async).length">
-    <span class="todo-count"><strong>{{todosService.$incompleteCount | async}} item{{incompleteCount != 1 ? 's' : ''}} left</strong>
+  <footer class="footer" *ngIf="$todoCount | async">
+    <span class="todo-count"><strong>{{$todoCount | async}} item{{($incompleteCount | async) != 1 ? 's' : ''}} left</strong>
     </span>
     <ul class="filters">
       <li>
@@ -24,6 +24,6 @@
       </li>
     </ul>
     <button class="clear-completed" (click)="clearCompleted()"
-            *ngIf="(todosService.$todos | async | todosFilter:'Completed').length">Clear completed</button>
+            *ngIf="$completedCount | async">Clear completed</button>
   </footer>
 </section>

@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodosFilterPipe } from './todos-filter.pipe';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { TodosFilterPipe } from './todos-filter.pipe';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [TodosFilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

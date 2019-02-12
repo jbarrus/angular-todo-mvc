@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Todo} from '../todo';
 import {TodosService} from '../todos.service';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
 import {TodoFilters} from '../todos-filter.pipe';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-todos',
@@ -11,11 +10,24 @@ import {TodoFilters} from '../todos-filter.pipe';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
-  constructor(public todosService: TodosService) { }
+  constructor(private todosService: TodosService) {
+  }
 
   filter: TodoFilters = 'All';
+  $todos = this.todosService.$todos;
+  $incompleteCount = this.$todos.pipe(
+    map(todos => todos.filter(t => !t.isCompleted).length)
+  );
+  $completedCount = this.$todos.pipe(
+    map(todos => todos.filter(t => t.isCompleted).length)
+  );
+  $todoCount = this.$todos.pipe(map(todos => todos.length));
 
   ngOnInit() {
+  }
+
+  toggleAll() {
+    this.todosService.toggleAll();
   }
 
   onTodoAdded(text: string) {
