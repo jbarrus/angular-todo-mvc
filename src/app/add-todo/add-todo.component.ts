@@ -9,7 +9,9 @@ export class AddTodoComponent {
   @Output() todoAdded = new EventEmitter<string>();
 
   addTodo(text: string) {
-    this.todoAdded.emit(text);
-    return false;
+    if (text) {
+      this.todoAdded.emit(text);
+      return false;
+    }
   }
 }

@@ -34,9 +34,8 @@ export class TodoItemComponent implements OnInit {
   }
 
   finishEditing() {
-    if (this.isEditing) {
-      console.log('finish editing', this.editText);
-      this.isEditing = false;
+    this.isEditing = false;
+    if (this.isEditing && this.editText) {
       this.changed.emit({...this.todo, text: this.editText});
     }
   }
