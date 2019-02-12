@@ -1,0 +1,9 @@
+<form class="todo-form" (submit)="addTodo(todoInput.value); todoInput.value = ''">
+  <input type="text"
+         #todoInput
+         name="todoText"
+         [(ngModel)]="todoText"
+         class="new-todo"
+         autofocus
+         placeholder="What needs to be done?">
+</form>

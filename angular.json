@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/todomvc-app-css/index.css",
               "src/styles.scss"
             ],
             "scripts": []

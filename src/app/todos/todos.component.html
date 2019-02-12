@@ -1,0 +1,29 @@
+<section class="todoapp">
+  <header class="header">
+    <h1>Todos</h1>
+    <app-add-todo (todoAdded)="onTodoAdded($event)"></app-add-todo>
+  </header>
+  <section class="main" *ngIf="(todosService.$todos | async).length">
+    <app-todo-list [todos]="todosService.$todos | async | todosFilter:filter"
+                   (removed)="onRemoved($event)"
+                   (changed)="onChanged($event)"
+                   (toggleAllClicked)="todosService.toggleAll()"></app-todo-list>
+  </section>
+  <footer class="footer" *ngIf="(todosService.$todos | async).length">
+    <span class="todo-count"><strong>{{todosService.$incompleteCount | async}} item{{incompleteCount != 1 ? 's' : ''}} left</strong>
+    </span>
+    <ul class="filters">
+      <li>
+        <a [ngClass]="{selected: filter === 'All'}" (click)="filter = 'All'">All</a>
+      </li>
+      <li>
+        <a [ngClass]="{selected: filter === 'Active'}" (click)="filter = 'Active'">Active</a>
+      </li>
+      <li>
+        <a [ngClass]="{selected: filter === 'Completed'}" (click)="filter = 'Completed'">Completed</a>
+      </li>
+    </ul>
+    <button class="clear-completed" (click)="clearCompleted()"
+            *ngIf="(todosService.$todos | async | todosFilter:'Completed').length">Clear completed</button>
+  </footer>
+</section>

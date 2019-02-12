@@ -1,0 +1,11 @@
+<section class="main">
+  <input id="toggle-all" class="toggle-all" type="checkbox" (click)="toggleAllClicked.emit()">
+  <label for="toggle-all"></label>
+  <ul class="todo-list">
+    <app-todo-item *ngFor="let todo of todos"
+                   [todo]="todo"
+                   (changed)="changed.emit($event)"
+                   (removed)="removed.emit(todo)">
+    </app-todo-item>
+  </ul>
+</section>
