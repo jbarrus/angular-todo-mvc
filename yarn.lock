@@ -283,6 +283,31 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@ngrx/effects@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.2.0.tgz#8aa318ac247d8e9a428625562a124a6463e3ee2f"
+  integrity sha512-vymKSoubYlUWGbiclPK0N/LwB409sB9atjSTQRy2EisZfFtQ2tCDqmk4JGgDy/gV9SqZWrwPSy1xXsLqYnyN3g==
+
+"@ngrx/entity@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-7.2.0.tgz#b8de8fd6fb39b87eb4187a9768e39e2862e35669"
+  integrity sha512-DaHBRSVHJ0tJtJkTswZNKCxp6CuD49gTsD4C29MpLK72oR0UPBlbJGyPPS2CroEXqOX0rfq85P9lun0NL8FZWA==
+
+"@ngrx/schematics@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-7.2.0.tgz#2802a6f7533904967416de09c306e4149f58d1e6"
+  integrity sha512-BG1Sg3bWjrJBmwbCgmrjmaeWwqOHcQsZeavWx1oCkrrSR+7u2h6mwzIFiVZUqhs8DQw5THr91pe6rtpHKcQ6Yw==
+
+"@ngrx/store-devtools@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-7.2.0.tgz#91e2287f0d67d4e79c51bd3d649a5013e71bbcad"
+  integrity sha512-t+8K1IG8+MvFqLIuRSM+ZE1EkZIuUExJ0JsqZR4r4K3MRPRoGy1ZqlStBWYaYLumEToesiCOGxuJYQ4zyVwlZg==
+
+"@ngrx/store@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-7.2.0.tgz#b22200fd48b721afe0e5cc9eec92f3dc31c078b1"
+  integrity sha512-E9c0cDot0HeE0mXyeqw18SwmJ2+eKnA5mMMfwvoskpMInCYGI2pq1i6/lCVQ2wrEHSH+KvObK4PQbepcA9vP+w==
+
 "@ngtools/webpack@7.2.4":
   version "7.2.4"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.2.4.tgz#5645b0a3af6a37abd6c1b277d9e16c4c27cff11e"
@@ -6992,11 +7017,6 @@ todomvc-app-css@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/todomvc-app-css/-/todomvc-app-css-2.1.2.tgz#f644c1308ba51b983436497e30f3abe961ca9c62"
   integrity sha512-WgXLWY4snfC7yBkpzFb6xRmUbB06NGuji6njCByte0byW2DUpmyhh32o4sCQ8HX/pTwm71huKQlFiKYxR/2iVQ==
-
-todomvc-common@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/todomvc-common/-/todomvc-common-1.0.5.tgz#8c3e799ac9f1fc1573e0c204f984510826914730"
-  integrity sha512-D8kEJmxVMQIWwztEdH+WeiAfXRbbSCpgXq4NkYi+gduJ2tr8CNq7sYLfJvjpQ10KD9QxJwig57rvMbV2QAESwQ==
 
 tough-cookie@~2.4.3:
   version "2.4.3"

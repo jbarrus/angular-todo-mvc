@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "angular-todo-mvc"
+  "defaultProject": "angular-todo-mvc",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

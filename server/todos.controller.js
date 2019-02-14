@@ -53,7 +53,7 @@ class TodosController {
       });
     }
 
-    if (!req.body.text) {
+    if (req.body.hasOwnProperty('text') && !req.body.text) {
       return res.status(400).send({
         success: 'false',
         message: 'text is required',

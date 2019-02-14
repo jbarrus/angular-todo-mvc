@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {Todo} from '../todo';
+import {Todo} from '../todo.model';
 
 @Component({
   selector: 'app-todo-item',
