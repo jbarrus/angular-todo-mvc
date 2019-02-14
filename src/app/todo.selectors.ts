@@ -1,7 +1,5 @@
 import {ActionReducerMap, createFeatureSelector, createSelector,} from '@ngrx/store';
 import * as fromTodo from './todo.reducer';
-import {Todo} from './todo.model';
-import {filterTodos, TodoFilters} from './todos-filter.pipe';
 
 export interface State {
   todos: fromTodo.State;
