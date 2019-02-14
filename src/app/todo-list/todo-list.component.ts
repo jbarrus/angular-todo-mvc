@@ -12,7 +12,8 @@ export class TodoListComponent implements OnInit {
   @Output() changed = new EventEmitter<Todo>();
   @Output() toggleAllClicked = new EventEmitter<void>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

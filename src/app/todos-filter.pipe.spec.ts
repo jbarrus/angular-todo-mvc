@@ -1,4 +1,4 @@
-import { TodosFilterPipe } from './todos-filter.pipe';
+import {TodosFilterPipe} from './todos-filter.pipe';
 
 describe('TodosFilterPipe', () => {
   it('create an instance', () => {

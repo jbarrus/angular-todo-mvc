@@ -1,4 +1,4 @@
-import { reducer, initialState } from './todo.reducer';
+import {initialState, reducer} from './todo.reducer';
 
 describe('Todo Reducer', () => {
   describe('unknown action', () => {

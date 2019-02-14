@@ -1,6 +1,6 @@
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Todo } from './todo.model';
-import { TodoActions, TodoActionTypes } from './todo.actions';
+import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import {Todo} from './todo.model';
+import {TodoActions, TodoActionTypes} from './todo.actions';
 
 export interface State extends EntityState<Todo> {
   // additional entities state properties

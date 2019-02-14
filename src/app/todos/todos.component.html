@@ -10,7 +10,8 @@
                    (toggleAllClicked)="toggleAll()"></app-todo-list>
   </section>
   <footer class="footer" *ngIf="$todoCount | async">
-    <span class="todo-count"><strong>{{$incompleteCount | async}} item{{($incompleteCount | async) !== 1 ? 's' : ''}} left</strong>
+    <span class="todo-count"><strong>{{$incompleteCount | async}} item{{($incompleteCount | async)
+    !== 1 ? 's' : ''}} left</strong>
     </span>
     <ul class="filters">
       <li>
@@ -24,6 +25,7 @@
       </li>
     </ul>
     <button class="clear-completed" (click)="clearCompleted()"
-            *ngIf="$completedCount | async">Clear completed</button>
+            *ngIf="$completedCount | async">Clear completed
+    </button>
   </footer>
 </section>
