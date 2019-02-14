@@ -3,6 +3,7 @@ import {Todo} from '../todo';
 import {TodosService} from '../todos.service';
 import {TodoFilters} from '../todos-filter.pipe';
 import {map} from 'rxjs/operators';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 
 @Component({
   selector: 'app-todos',
@@ -10,10 +11,11 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
-  constructor(private todosService: TodosService) {
+  constructor(private todosService: TodosService,
+              private route: ActivatedRoute,) {
   }
 
-  filter: TodoFilters = 'All';
+  filter: TodoFilters = 'all';
   $todos = this.todosService.$todos;
   $incompleteCount = this.$todos.pipe(
     map(todos => todos.filter(t => !t.isCompleted).length)
@@ -25,6 +27,10 @@ export class TodosComponent implements OnInit {
 
   ngOnInit() {
     this.todosService.getTodos();
+
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.filter = (params.get('filter') || 'all') as TodoFilters;
+    });
   }
 
   toggleAll() {

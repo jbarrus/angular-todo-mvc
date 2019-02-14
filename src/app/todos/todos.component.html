@@ -14,13 +14,13 @@
     </span>
     <ul class="filters">
       <li>
-        <a [ngClass]="{selected: filter === 'All'}" (click)="filter = 'All'">All</a>
+        <a [ngClass]="{selected: filter === 'All'}" routerLink="/">All</a>
       </li>
       <li>
-        <a [ngClass]="{selected: filter === 'Active'}" (click)="filter = 'Active'">Active</a>
+        <a [ngClass]="{selected: filter === 'Active'}" routerLink="/active">Active</a>
       </li>
       <li>
-        <a [ngClass]="{selected: filter === 'Completed'}" (click)="filter = 'Completed'">Completed</a>
+        <a [ngClass]="{selected: filter === 'Completed'}" routerLink="/completed">Completed</a>
       </li>
     </ul>
     <button class="clear-completed" (click)="clearCompleted()"

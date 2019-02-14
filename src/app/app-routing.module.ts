@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {TodosComponent} from './todos/todos.component';
 
 const routes: Routes = [
+  {component: TodosComponent, path: ':filter'},
   {component: TodosComponent, path: ''}
 ];
 
