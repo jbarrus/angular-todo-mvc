@@ -24,6 +24,7 @@ export class TodosComponent implements OnInit {
   $todoCount = this.$todos.pipe(map(todos => todos.length));
 
   ngOnInit() {
+    this.todosService.getTodos();
   }
 
   toggleAll() {
