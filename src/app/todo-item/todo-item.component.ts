@@ -1,10 +1,11 @@
-import {Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Todo} from '../todo.model';
 
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
-  styleUrls: ['./todo-item.component.scss']
+  styleUrls: ['./todo-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoItemComponent implements OnInit {
   @Input() todo: Todo;
@@ -34,10 +35,10 @@ export class TodoItemComponent implements OnInit {
   }
 
   finishEditing() {
-    this.isEditing = false;
     if (this.isEditing && this.editText) {
       this.changed.emit({...this.todo, text: this.editText});
     }
+    this.isEditing = false;
   }
 
   remove() {

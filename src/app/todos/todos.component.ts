@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Todo} from '../todo.model';
 import {TodoFilters} from '../todos-filter.pipe';
 import {ActivatedRoute, ParamMap} from '@angular/router';
@@ -11,7 +11,8 @@ import {AddTodo, ClearCompletedTodos, DeleteTodo, LoadTodos, ToggleTodos, Update
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
-  styleUrls: ['./todos.component.scss']
+  styleUrls: ['./todos.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodosComponent implements OnInit {
   filter: TodoFilters = 'all';

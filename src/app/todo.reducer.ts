@@ -33,11 +33,6 @@ export function reducer(
       return adapter.addAll(action.payload.todos, state);
     }
 
-    // TODO
-    // case TodoActionTypes.ClearTodosSuccess: {
-    //   return adapter.removeMany(state);
-    // }
-
     default: {
       return state;
     }
