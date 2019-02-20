@@ -58,9 +58,9 @@ export class AppEffects {
   @Effect() updateTodo = this.actions$
   .pipe(
     ofType<UpdateTodo>(TodoActionTypes.UpdateTodo),
-    mergeMap(action => this.http.put<Todo>(`/api/v1/todos/${action.payload.update.id}`, action.payload.update.changes)
+    mergeMap(action => this.http.put<Todo>(`/api/v1/todos/${action.payload.todo.id}`, action.payload.todo)
       .pipe(
-        map(todo => new UpdateTodoSuccess({update: {id: todo.id, changes: todo}})),
+        map(todo => new UpdateTodoSuccess({todo})),
         catchError(() => EMPTY) // TODO handle errors
       )
     )
@@ -75,7 +75,7 @@ export class AppEffects {
 
       return todos
       .filter(t => t.isCompleted !== toggleValue)
-      .map(t => new UpdateTodo({update: {id: t.id, changes: {isCompleted: toggleValue}}}));
+      .map(t => new UpdateTodo({todo: {...t, isCompleted: toggleValue}}));
     })
   );
 

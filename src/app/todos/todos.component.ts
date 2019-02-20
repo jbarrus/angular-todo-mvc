@@ -50,7 +50,7 @@ export class TodosComponent implements OnInit {
   }
 
   onChanged(todo: Todo) {
-    this.store.dispatch(new UpdateTodo({update: {id: todo.id, changes: todo}}));
+    this.store.dispatch(new UpdateTodo({todo}));
   }
 
   clearCompleted() {

@@ -1,4 +1,4 @@
-import {ActionReducerMap, createFeatureSelector, createSelector,} from '@ngrx/store';
+import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromTodo from './todo.reducer';
 
 export interface State {
@@ -13,12 +13,12 @@ export const selectTodoState = createFeatureSelector<fromTodo.State>('todo');
 
 export const selectAll = createSelector(
   selectTodoState,
-  fromTodo.selectAll
+  todoState => todoState.ids.map(id => todoState.todos[id])
 );
 
 export const selectCount = createSelector(
   selectTodoState,
-  fromTodo.selectTotal
+  todoState => todoState.ids.length
 );
 
 export const selectActive = createSelector(

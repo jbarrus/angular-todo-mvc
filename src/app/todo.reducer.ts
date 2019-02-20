@@ -1,16 +1,18 @@
-import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 import {Todo} from './todo.model';
 import {TodoActions, TodoActionTypes} from './todo.actions';
+import omit from 'lodash.omit';
+import map from 'lodash.map';
+import keyBy from 'lodash.keyby';
 
-export interface State extends EntityState<Todo> {
-  // additional entities state properties
+export interface State {
+  ids: number[];
+  todos: {[id: number]: Todo};
 }
 
-export const adapter: EntityAdapter<Todo> = createEntityAdapter<Todo>();
-
-export const initialState: State = adapter.getInitialState({
-  // additional entity state properties
-});
+export const initialState: State = {
+  ids: [],
+  todos: {}
+};
 
 export function reducer(
   state = initialState,
@@ -18,19 +20,31 @@ export function reducer(
 ): State {
   switch (action.type) {
     case TodoActionTypes.AddTodoSuccess: {
-      return adapter.addOne(action.payload.todo, state);
+      return {
+        ids: [...state.ids, action.payload.todo.id],
+        todos: {...state.todos, [action.payload.todo.id]: action.payload.todo}
+      };
     }
 
     case TodoActionTypes.UpdateTodoSuccess: {
-      return adapter.updateOne(action.payload.update, state);
+      return {
+        ...state,
+        todos: {...state.todos, [action.payload.todo.id]: action.payload.todo}
+      };
     }
 
     case TodoActionTypes.DeleteTodoSuccess: {
-      return adapter.removeOne(action.payload.id, state);
+      return {
+        ids: state.ids.filter(id => id !== action.payload.id),
+        todos: omit(state.todos, action.payload.id)
+      };
     }
 
     case TodoActionTypes.LoadTodosSuccess: {
-      return adapter.addAll(action.payload.todos, state);
+      return {
+        ids: map(action.payload.todos, 'id'),
+        todos: keyBy(action.payload.todos, 'id')
+      };
     }
 
     default: {
@@ -38,8 +52,3 @@ export function reducer(
     }
   }
 }
-
-export const {
-  selectAll,
-  selectTotal,
-} = adapter.getSelectors();
