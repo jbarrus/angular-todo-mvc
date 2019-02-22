@@ -1,0 +1,26 @@
+# Comments in GraphQL are defined with the hash (#) symbol.
+
+# This "Book" type can be used in other type declarations.
+type Todo {
+  id: Int
+  text: String
+  isCompleted: Boolean
+}
+
+input TodoInput {
+  id: Int
+  text: String!
+  isCompleted: Boolean
+}
+
+# The "Query" type is the root of all GraphQL queries.
+# (A "Mutation" type will be covered later on.)
+type Query {
+  todos: [Todo]
+}
+
+type Mutation {
+  updateTodo(todo: TodoInput!): Todo
+  addTodo(text: String!): Todo
+  deleteTodo(id: Int!): Int
+}

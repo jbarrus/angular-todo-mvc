@@ -2,11 +2,14 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Todo} from '../todo.model';
 import {TodoFilters} from '../todos-filter.pipe';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {Store} from '@ngrx/store';
-import {State} from '../reducers';
 import {Observable} from 'rxjs';
-import {selectActiveCount, selectAll, selectCompletedCount, selectCount} from '../todo.selectors';
-import {AddTodo, ClearCompletedTodos, DeleteTodo, LoadTodos, ToggleTodos, UpdateTodo} from '../todo.actions';
+import {Apollo} from 'apollo-angular';
+import gql from 'graphql-tag';
+import {filter, map, tap} from 'rxjs/operators';
+import * as _ from 'lodash';
+import { DataProxy } from 'apollo-cache';
+import {FetchResult} from 'apollo-link';
+import {TodosService} from '../todos.service';
 
 @Component({
   selector: 'app-todos',
@@ -22,38 +25,36 @@ export class TodosComponent implements OnInit {
   $completedCount: Observable<Number>;
   $todoCount: Observable<Number>;
 
-  constructor(private route: ActivatedRoute, private store: Store<State>) {
-    this.$todos = store.select(selectAll);
-    this.$incompleteCount = store.select(selectActiveCount);
-    this.$completedCount = store.select(selectCompletedCount);
-    this.$todoCount = store.select(selectCount);
+  constructor(private route: ActivatedRoute, private todosService: TodosService) {
+    this.$todos = todosService.$todos;
+    this.$todoCount = todosService.$todoCount;
+    this.$incompleteCount = todosService.$incompleteCount;
+    this.$completedCount = todosService.$completedCount;
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadTodos());
-
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.filter = (params.get('filter') || 'all') as TodoFilters;
     });
   }
 
   toggleAll() {
-    this.store.dispatch(new ToggleTodos());
+    // this.store.dispatch(new ToggleTodos());
   }
 
   onTodoAdded(text: string) {
-    this.store.dispatch(new AddTodo({todo: {text}}));
+    this.todosService.add(text);
   }
 
   onRemoved(todo: Todo) {
-    this.store.dispatch(new DeleteTodo({id: todo.id}));
+    this.todosService.remove(todo.id);
   }
 
   onChanged(todo: Todo) {
-    this.store.dispatch(new UpdateTodo({todo}));
+    this.todosService.update(todo);
   }
 
   clearCompleted() {
-    this.store.dispatch(new ClearCompletedTodos());
+    this.todosService.clearCompleted();
   }
 }

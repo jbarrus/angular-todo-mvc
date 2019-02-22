@@ -32,10 +32,12 @@ class TodosController {
       isCompleted: false
     };
     db.push(todo);
+    console.log('return is', todo);
     return res.status(201).send(todo);
   }
 
   updateTodo(req, res) {
+    console.log('update todo', req.body, req.params);
     const id = parseInt(req.params.id, 10);
     let todoFound;
     let itemIndex;
@@ -92,6 +94,8 @@ class TodosController {
       });
     }
     db.splice(itemIndex, 1);
+
+    console.log(`deleted item with id ${id} at index ${itemIndex}`);
 
     return res.status(204).send();
   }

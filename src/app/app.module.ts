@@ -17,6 +17,7 @@ import {environment} from '../environments/environment';
 import {EffectsModule} from '@ngrx/effects';
 import {AppEffects} from './app.effects';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {StoreRouterConnectingModule} from '@ngrx/router-store';
     StoreModule.forRoot(reducers, {metaReducers}),
     StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([AppEffects]),
+    GraphQLModule
   ],
   providers: [TodosFilterPipe],
   bootstrap: [AppComponent]
