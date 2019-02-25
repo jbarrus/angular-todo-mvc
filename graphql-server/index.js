@@ -4,19 +4,6 @@ const {ApolloServer, gql} = require('apollo-server');
 
 const typeDefs = importSchema('./schema.graphql');
 
-// This is a (sample) collection of books we'll be able to query
-// the GraphQL server for.  A more complete example might fetch
-// from an existing data source like a REST API or database.
-const books = [
-  {
-    title: 'Harry Potter and the Chamber of Secrets',
-    author: 'J.K. Rowling',
-  },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
-  },
-];
 
 // Resolvers define the technique for fetching the types in the
 // schema.  We'll retrieve books from the "books" array above.
@@ -31,8 +18,25 @@ const resolvers = {
     addTodo: async(_source, {text}, {dataSources}) =>
       dataSources.todosAPI.addTodo(text),
     deleteTodo: async(_source, {id}, {dataSources}) =>
-      dataSources.todosAPI.deleteTodo(id)
-
+      dataSources.todosAPI.deleteTodo(id),
+    clearCompleted: async(_source, {id}, {dataSources}) => {
+      const todos = await dataSources.todosAPI.getTodos();
+      return Promise.all(todos
+        .filter(t => t.isCompleted)
+        .map(t => dataSources.todosAPI.deleteTodo(t.id))
+      );
+    },
+    toggleAll: async(_source, {id}, {dataSources}) => {
+      const todos = await dataSources.todosAPI.getTodos();
+      const toggleValue = !todos.every(t => t.isCompleted);
+      return Promise.all(todos
+        .filter(t => t.isCompleted !== toggleValue)
+        .map(t =>
+          dataSources.todosAPI.updateTodo({...t, isCompleted: toggleValue})
+            .then(t => t.id)
+        )
+      );
+    }
   }
 };
 

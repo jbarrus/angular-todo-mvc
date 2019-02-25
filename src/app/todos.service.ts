@@ -11,8 +11,8 @@ import * as _ from 'lodash';
 const fetchQuery = gql`
   {
     todos {
-      id,
-      text,
+      id
+      text
       isCompleted
     }
   }
@@ -96,6 +96,29 @@ export class TodosService {
   }
 
   clearCompleted(): void {
-    // TODO
+    this.apollo.mutate({
+      mutation: gql`
+        mutation {
+          clearCompleted
+        }
+      `,
+      update: (proxy: DataProxy, {data: {clearCompleted}}: FetchResult) => {
+        const clearedIds = clearCompleted as number[];
+        const data: {todos: Todo[]} = proxy.readQuery<{todos: Todo[]}>({query: fetchQuery});
+        data.todos = data.todos.filter(t => clearedIds.indexOf(t.id) === -1);
+        proxy.writeQuery({query: fetchQuery, data});
+      }
+    }).subscribe();
+  }
+
+  toggleAll(): void {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation {
+          toggleAll
+        }
+      `,
+      refetchQueries: fetchQuery // just refresh all, it's likely that many have changed
+    }).subscribe();
   }
 }

@@ -39,7 +39,7 @@ export class TodosComponent implements OnInit {
   }
 
   toggleAll() {
-    // this.store.dispatch(new ToggleTodos());
+    this.todosService.toggleAll();
   }
 
   onTodoAdded(text: string) {

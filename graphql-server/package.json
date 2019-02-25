@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node_modules/.bin/nodemon index.js"
+  },
   "dependencies": {
     "apollo-datasource-rest": "^0.3.2",
     "apollo-server": "^2.4.3",
     "body-parser": "^1.18.3",
     "graphql": "^14.1.1",
-    "graphql-tools": "^4.0.4"
+    "graphql-import": "^0.7.1",
+    "graphql-tools": "^4.0.4",
+    "nodemon": "^1.18.10"
   }
 }
