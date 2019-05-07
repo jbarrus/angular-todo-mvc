@@ -9,7 +9,7 @@ import { DataProxy } from 'apollo-cache';
 import * as _ from 'lodash';
 
 const fetchQuery = gql`
-  {
+  query allTodos {
     todos {
       id
       text
@@ -50,13 +50,14 @@ export class TodosService {
           }
         }
       `,
-      update: (proxy: DataProxy, {data: {addTodo}}: FetchResult) => {
-        const data: {todos: Todo[]} = proxy.readQuery<{todos: Todo[]}>({query: fetchQuery});
-        console.log('todos before mutate update', JSON.stringify(data.todos, undefined, '  '));
-        data.todos = [...data.todos, addTodo];
-        console.log('todos after mutate update', JSON.stringify(data.todos, undefined, '  '));
-        proxy.writeQuery({query: fetchQuery, data});
-      }
+      refetchQueries: ['allTodos']
+      // update: (proxy: DataProxy, {data: {addTodo}}: FetchResult) => {
+      //   const data: {todos: Todo[]} = proxy.readQuery<{todos: Todo[]}>({query: fetchQuery});
+      //   console.log('todos before mutate update', JSON.stringify(data.todos, undefined, '  '));
+      //   data.todos = [...data.todos, addTodo];
+      //   console.log('todos after mutate update', JSON.stringify(data.todos, undefined, '  '));
+      //   proxy.writeQuery({query: fetchQuery, data});
+      // }
     }).subscribe();
   }
 
@@ -70,11 +71,12 @@ export class TodosService {
           deleteTodo(id: $id)
         }
       `,
-      update: (proxy: DataProxy, {data: {deleteTodo}}: FetchResult) => {
-        const data: {todos: Todo[]} = proxy.readQuery<{todos: Todo[]}>({query: fetchQuery});
-        data.todos = data.todos.filter(t => t.id !== deleteTodo);
-        proxy.writeQuery({query: fetchQuery, data});
-      }
+      refetchQueries: ['allTodos']
+      // update: (proxy: DataProxy, {data: {deleteTodo}}: FetchResult) => {
+      //   const data: {todos: Todo[]} = proxy.readQuery<{todos: Todo[]}>({query: fetchQuery});
+      //   data.todos = data.todos.filter(t => t.id !== deleteTodo);
+      //   proxy.writeQuery({query: fetchQuery, data});
+      // }
     }).subscribe();
   }
 
@@ -102,12 +104,13 @@ export class TodosService {
           clearCompleted
         }
       `,
-      update: (proxy: DataProxy, {data: {clearCompleted}}: FetchResult) => {
-        const clearedIds = clearCompleted as number[];
-        const data: {todos: Todo[]} = proxy.readQuery<{todos: Todo[]}>({query: fetchQuery});
-        data.todos = data.todos.filter(t => clearedIds.indexOf(t.id) === -1);
-        proxy.writeQuery({query: fetchQuery, data});
-      }
+      refetchQueries: ['allTodos']
+      // update: (proxy: DataProxy, {data: {clearCompleted}}: FetchResult) => {
+      //   const clearedIds = clearCompleted as number[];
+      //   const data: {todos: Todo[]} = proxy.readQuery<{todos: Todo[]}>({query: fetchQuery});
+      //   data.todos = data.todos.filter(t => clearedIds.indexOf(t.id) === -1);
+      //   proxy.writeQuery({query: fetchQuery, data});
+      // }
     }).subscribe();
   }
 

@@ -1,0 +1,13 @@
+{
+  "schemaPath": "graphql-server/schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "todos graphql": {
+        "url": "http://localhost:4000/graphql",
+        "headers": {
+          "user-agent": "JS GraphQL"
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import db from './db';
 
+let idCounter = 0;
+
 class TodosController {
   getAllTodos(req, res) {
     return res.status(200).send(db);
@@ -27,7 +29,7 @@ class TodosController {
       });
     }
     const todo = {
-      id: db.length + 1,
+      id: idCounter++,
       text: req.body.text,
       isCompleted: false
     };
