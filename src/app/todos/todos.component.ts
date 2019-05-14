@@ -20,16 +20,18 @@ import {TodosService} from '../todos.service';
 export class TodosComponent implements OnInit {
   filter: TodoFilters = 'all';
 
-  $todos: Observable<Todo[]>;
-  $incompleteCount: Observable<Number>;
-  $completedCount: Observable<Number>;
-  $todoCount: Observable<Number>;
+  isLoading$: Observable<boolean>;
+  todos$: Observable<Todo[]>;
+  incompleteCount$: Observable<Number>;
+  completedCount$: Observable<Number>;
+  todoCount$: Observable<Number>;
 
   constructor(private route: ActivatedRoute, private todosService: TodosService) {
-    this.$todos = todosService.$todos;
-    this.$todoCount = todosService.$todoCount;
-    this.$incompleteCount = todosService.$incompleteCount;
-    this.$completedCount = todosService.$completedCount;
+    this.isLoading$ = todosService.isLoading$;
+    this.todos$ = todosService.todos$;
+    this.todoCount$ = todosService.todoCount$;
+    this.incompleteCount$ = todosService.incompleteCount$;
+    this.completedCount$ = todosService.completedCount$;
   }
 
   ngOnInit() {

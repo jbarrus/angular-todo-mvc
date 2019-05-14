@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Todo} from './todo.model';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import gql from 'graphql-tag';
-import {FetchResult} from 'apollo-link';
 import {Apollo} from 'apollo-angular';
-import { DataProxy } from 'apollo-cache';
 import * as _ from 'lodash';
 
 const fetchQuery = gql`
@@ -28,7 +26,7 @@ export class TodosService {
   $todoCount: Observable<Number>;
 
   constructor(private apollo: Apollo) {
-    this.$todos = apollo.watchQuery<{todos: Todo[]}>({
+    this.$todos = apollo.watchQuery<{ todos: Todo[] }>({
       query: fetchQuery
     }).valueChanges.pipe(map(r => r.data.todos));
     this.$todoCount = this.$todos.pipe(map(t => t.length));

@@ -11,6 +11,7 @@ import {TodoItemComponent} from './todo-item/todo-item.component';
 import {TodosFilterPipe} from './todos-filter.pipe';
 import {HttpClientModule} from '@angular/common/http';
 import {GraphQLModule} from './graphql.module';
+import {NgxLoadingModule} from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {GraphQLModule} from './graphql.module';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    GraphQLModule
+    GraphQLModule,
+    NgxLoadingModule.forRoot({})
   ],
   providers: [TodosFilterPipe],
   bootstrap: [AppComponent]

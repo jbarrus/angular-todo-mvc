@@ -1,10 +1,12 @@
 import db from './db';
 
-let idCounter = 0;
+let idCounter = db.length + 1;
 
 class TodosController {
   getAllTodos(req, res) {
-    return res.status(200).send(db);
+    setTimeout(() => {
+      res.status(200).send(db);
+    }, 1000);
   }
 
   getTodo(req, res) {
@@ -21,21 +23,23 @@ class TodosController {
   }
 
   createTodo(req, res) {
-    console.log('req.body', req.body);
-    if (!req.body.text) {
-      return res.status(400).send({
-        success: 'false',
-        message: 'text is required',
-      });
-    }
-    const todo = {
-      id: idCounter++,
-      text: req.body.text,
-      isCompleted: false
-    };
-    db.push(todo);
-    console.log('return is', todo);
-    return res.status(201).send(todo);
+    setTimeout(() => {
+      console.log('req.body', req.body);
+      if (!req.body.text) {
+        return res.status(400).send({
+          success: 'false',
+          message: 'text is required',
+        });
+      }
+      const todo = {
+        id: idCounter++,
+        text: req.body.text,
+        isCompleted: false
+      };
+      db.push(todo);
+      console.log('return is', todo);
+      res.status(201).send(todo);
+    }, 1000);
   }
 
   updateTodo(req, res) {

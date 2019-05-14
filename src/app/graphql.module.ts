@@ -1,14 +1,21 @@
 import {NgModule} from '@angular/core';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import {InMemoryCache, NormalizedCacheObject} from 'apollo-cache-inmemory';
+import {ApolloClientOptions} from 'apollo-client';
 
 const uri = 'http://localhost:4000/graphql';
-export function createApollo(httpLink: HttpLink) {
+export function createApollo(httpLink: HttpLink): ApolloClientOptions<NormalizedCacheObject> {
   return {
     link: httpLink.create({uri}),
     cache: new InMemoryCache(),
-    connectToDevTools: true
+    connectToDevTools: true,
+    defaultOptions: {
+      watchQuery: {
+        notifyOnNetworkStatusChange: true,
+        fetchPolicy: 'cache-and-network'
+      }
+    }
   };
 }
 
@@ -18,7 +25,7 @@ export function createApollo(httpLink: HttpLink) {
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [HttpLink],
+      deps: [HttpLink]
     },
   ],
 })
