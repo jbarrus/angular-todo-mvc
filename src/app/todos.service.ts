@@ -3,8 +3,9 @@ import {Todo} from './todo.model';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import gql from 'graphql-tag';
-import {Apollo} from 'apollo-angular';
+import {Apollo, QueryRef} from 'apollo-angular';
 import * as _ from 'lodash';
+import {ApolloQueryResult} from 'apollo-client';
 
 const fetchQuery = gql`
   query allTodos {
@@ -20,18 +21,21 @@ const fetchQuery = gql`
   providedIn: 'root'
 })
 export class TodosService {
-  $todos: Observable<Todo[]>;
-  $incompleteCount: Observable<Number>;
-  $completedCount: Observable<Number>;
-  $todoCount: Observable<Number>;
+  todosQuery: QueryRef<{ todos: Todo[] }>;
+  valueChanges$: Observable<ApolloQueryResult<{ todos: Todo[] }>>;
+  isLoading$: Observable<boolean>;
+  todos$: Observable<Todo[]>;
+  incompleteCount$: Observable<Number>;
+  completedCount$: Observable<Number>;
+  todoCount$: Observable<Number>;
 
   constructor(private apollo: Apollo) {
-    this.$todos = apollo.watchQuery<{ todos: Todo[] }>({
-      query: fetchQuery
-    }).valueChanges.pipe(map(r => r.data.todos));
-    this.$todoCount = this.$todos.pipe(map(t => t.length));
-    this.$incompleteCount = this.$todos.pipe(map(todos => todos.filter(t => !t.isCompleted).length));
-    this.$completedCount = this.$todos.pipe(map(todos => todos.filter(t => t.isCompleted).length));
+    this.valueChanges$ = apollo.watchQuery<{ todos: Todo[] }>({query: fetchQuery}).valueChanges;
+    this.isLoading$ = this.valueChanges$.pipe(map(r => r.loading));
+    this.todos$ = this.valueChanges$.pipe(map(r => r.data && r.data.todos || []));
+    this.todoCount$ = this.todos$.pipe(map(t => t.length));
+    this.incompleteCount$ = this.todos$.pipe(map(todos => todos.filter(t => !t.isCompleted).length));
+    this.completedCount$ = this.todos$.pipe(map(todos => todos.filter(t => t.isCompleted).length));
   }
 
   add(text: string): void {

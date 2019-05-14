@@ -6,7 +6,7 @@ class TodosController {
   getAllTodos(req, res) {
     setTimeout(() => {
       res.status(200).send(db);
-    }, 1000);
+    }, 200);
   }
 
   getTodo(req, res) {
@@ -39,7 +39,7 @@ class TodosController {
       db.push(todo);
       console.log('return is', todo);
       res.status(201).send(todo);
-    }, 1000);
+    }, 200);
   }
 
   updateTodo(req, res) {
